@@ -1,0 +1,3 @@
+#!/bin/sh
+qemu-img create -f qcow2 -b disk.img.orig disk-$1.img
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ~/src/coscin-app
+python coscin_switch_app.py

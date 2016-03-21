@@ -1,0 +1,19 @@
+#!/bin/sh
+
+switch='br-nyc'
+/sbin/ifconfig $1 0.0.0.0 up
+case "$1" in
+    tap1) ofport=1
+	  ;;
+    tap3) ofport=2
+	  ;;
+#    tap6) ofport=3
+#	  ;;
+#    tap7) ofport=4
+#	  ;;
+    *) echo "Unexpected tap port $1 for NYC"
+       exit
+       ;;
+esac
+
+ovs-vsctl add-port ${switch} $1 -- set Interface $1 ofport_request=${ofport}

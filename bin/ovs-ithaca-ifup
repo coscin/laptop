@@ -1,0 +1,21 @@
+#!/bin/sh
+
+switch='br-ithaca'
+/sbin/ifconfig $1 0.0.0.0 up
+case "$1" in
+    tap0) ofport=1
+          ;;
+    tap2) ofport=2
+          ;;
+#    tap3) ofport=3
+#          ;;
+#    tap4) ofport=4
+#          ;;
+    tap4) ofport=3
+          ;;
+    *) echo "Unexpected tap port $1 for Ithaca"
+       exit
+       ;;
+esac
+
+ovs-vsctl add-port ${switch} $1 -- set Interface $1 ofport_request=${ofport}

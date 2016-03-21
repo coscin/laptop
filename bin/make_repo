@@ -1,0 +1,2 @@
+[ -d ~/laptop/bin ] || mkdir ~/laptop/bin
+cp bin/* ~/laptop/bin

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+kvm -m 512 \
+    -device e1000,netdev=net1,mac=00:11:22:cc:cc:c1 \
+    -netdev tap,id=net1,script=/home/cr396/bin/ovs-ithaca-ifup,downscript=/home/cr396/bin/ovs-ithaca-ifdown \
+    -device e1000,netdev=net2,mac=00:11:22:cc:cc:c2 \
+    -netdev tap,id=net2,script=/home/cr396/bin/ovs-nyc-ifup,downscript=/home/cr396/bin/ovs-nyc-ifdown \
+    -hda /home/cr396/vms/disk-router.img -hdb /home/cr396/vms/my-seed.img -nographic
+
+
+#    -device e1000,netdev=net3,mac=00:11:22:cc:cc:c3 \
+#    -netdev tap,id=net3,script=/home/cr396/bin/ovs-ithaca-ifup,downscript=/home/cr396/bin/ovs-ithaca-ifdown \
+#    -device e1000,netdev=net4,mac=00:11:22:cc:cc:c4 \
+#    -netdev tap,id=net4,script=/home/cr396/bin/ovs-nyc-ifup,downscript=/home/cr396/bin/ovs-nyc-ifdown \
+#    -device e1000,netdev=net5,mac=00:11:22:cc:cc:c5 \
+#    -netdev tap,id=net5,script=/home/cr396/bin/ovs-nyc-ifup,downscript=/home/cr396/bin/ovs-nyc-ifdown \
+#    -device e1000,netdev=net6,mac=00:11:22:cc:cc:c6 \
+#    -netdev tap,id=net6,script=/home/cr396/bin/ovs-nyc-ifup,downscript=/home/cr396/bin/ovs-nyc-ifdown \
+

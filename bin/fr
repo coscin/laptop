@@ -1,0 +1,2 @@
+#!/bin/bash
+~/src/frenetic/frenetic.native http-controller --verbosity debug
