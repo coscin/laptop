@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Copy bins into place
+[ -d ~/bin ] || mkdir ~/bin
+cp bin/* ~/bin
+
+## Install necessary packages
+sudo apt-get install kvm cloud-utils genisoimage
+
+## URL to most recent cloud image of 15.10
+img_url="http://cloud-images.ubuntu.com/server/releases/15.10/release"
+img_url="${img_url}/ubuntu-15.10-server-cloudimg-amd64-disk1.img"
+
+## download the image
+[ -d ~/vms ] || mkdir ~/vms
+wget $img_url -O ~/vms/disk.img.dist
+
+## Create a file with some user-data in it
+cat > ~/vms/my-user-data <<EOF
+#cloud-config
+password: passw0rd
+chpasswd: { expire: False }
+ssh_pwauth: True
+EOF
+
+## Convert the compressed qcow file downloaded to a uncompressed qcow2
+qemu-img convert -O qcow2 ~/vms/disk.img.dist ~/vms/disk.img.orig
+
+## create the disk with NoCloud data on it.
+cloud-localds ~/vms/my-seed.img ~/vms/my-user-data
+
+## Create a delta disk to keep our .orig file pristine
+qemu-img create -f qcow2 -b ~/vms/disk.img.orig ~/vms/disk.img
+
+## Create bridges
+sudo ovs-vsctl add-br ithaca
+sudo ovs-vsctl set-controller ithaca tcp:127.0.0.1:6633
+
+sudo ovs-vsctl add-br nyc
+sudo ovs-vsctl set-controller nyc tcp:127.0.0.1:6633
