@@ -1,4 +1,4 @@
 #!/bin/bash
 
 kvm -m 512 -device e1000,netdev=net0,mac=00:11:22:ee:ee:ee -netdev tap,id=net0,script=/home/cr396/bin/ovs-ithaca-ifup,downscript=/home/cr396/bin/ovs-ithaca-ifdown -netdev user,id=user.1 -device e1000,netdev=user.1 -hda /home/cr396/vms/disk-ithaca.img -hdb /home/cr396/vms/my-seed.img -nographic
-fi 
+

@@ -241,3 +241,5 @@ ubuntu@coscintest-host-ithaca$ ping 192.168.57.100
 ubuntu@coscintest-host-ithaca$ ping 192.168.157.100
 ```
 
+Finally, to shut down VM's, use the Ubuntu standard `sudo shutdown now` on each.  I usually shutdown in the reverse order the VM's
+were started, but that's probably not necessary.
