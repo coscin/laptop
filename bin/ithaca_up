@@ -1,9 +1,4 @@
 #!/bin/bash
 
-if [ -n "$1" ]; then
-  # To use this setup, the /etc/network/interfaces.d/eth0.cfg should be set for
-  # a DHCP setup in the guest.  Note: user mode networking doesn't work with ping.
-  kvm -m 512 -netdev user,id=user.0 -device e1000,netdev=user.0 -hda /home/cr396/vms/disk-ithaca.img -hdb /home/cr396/vms/my-seed.img -nographic
-else
-  kvm -m 512 -device e1000,netdev=net0,mac=00:11:22:ee:ee:ee -netdev tap,id=net0,script=/home/cr396/bin/ovs-ithaca-ifup,downscript=/home/cr396/bin/ovs-ithaca-ifdown -hda /home/cr396/vms/disk-ithaca.img -hdb /home/cr396/vms/my-seed.img -nographic
+kvm -m 512 -device e1000,netdev=net0,mac=00:11:22:ee:ee:ee -netdev tap,id=net0,script=/home/cr396/bin/ovs-ithaca-ifup,downscript=/home/cr396/bin/ovs-ithaca-ifdown -netdev user,id=user.1 -device e1000,netdev=user.1 -hda /home/cr396/vms/disk-ithaca.img -hdb /home/cr396/vms/my-seed.img -nographic
 fi 
