@@ -5,7 +5,7 @@
 cp bin/* ~/bin
 
 ## Install necessary packages
-sudo apt-get install kvm cloud-utils genisoimage
+sudo apt-get install kvm cloud-utils genisoimage openvswitch-switch
 
 ## URL to most recent cloud image of 15.10
 img_url="http://cloud-images.ubuntu.com/server/releases/15.10/release"
@@ -33,8 +33,8 @@ cloud-localds ~/vms/my-seed.img ~/vms/my-user-data
 qemu-img create -f qcow2 -b ~/vms/disk.img.orig ~/vms/disk.img
 
 ## Create bridges
-sudo ovs-vsctl add-br ithaca
-sudo ovs-vsctl set-controller ithaca tcp:127.0.0.1:6633
+sudo ovs-vsctl add-br br-ithaca
+sudo ovs-vsctl set-controller br-ithaca tcp:127.0.0.1:6633
 
-sudo ovs-vsctl add-br nyc
-sudo ovs-vsctl set-controller nyc tcp:127.0.0.1:6633
+sudo ovs-vsctl add-br br-nyc
+sudo ovs-vsctl set-controller br-nyc tcp:127.0.0.1:6633
